@@ -95,7 +95,7 @@ endif
 let mapleader = ","
 
 """ Insert Mode
-inoremap <c-l> <esc>
+inoremap <c-g> <esc>
 
 """ Normal Mode
 nmap <silent><c-c> :nohlsearch<cr>
