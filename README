@@ -1,2 +1,0 @@
-== Updating submodules ==
-git submodule foreach git pull --rebase
