@@ -45,3 +45,6 @@
 [submodule "bundle/vim-puppet"]
 	path = bundle/vim-puppet
 	url = https://github.com/rodjek/vim-puppet.git
+[submodule "bundle/vim-rsi"]
+	path = bundle/vim-rsi
+	url = https://github.com/tpope/vim-rsi.git
