@@ -99,7 +99,7 @@ inoremap <c-g> <esc>
 
 """ Normal Mode
 nmap <silent><c-c> :nohlsearch<cr>
-nmap <leader>b :buffer
+nmap <leader>b :buffer<space>
 nmap <leader><leader> :buffers<cr>
 nmap <leader>rc :split $MYVIMRC<cr>
 nmap <leader>ts :call StripTrailingSpace()<cr>
