@@ -94,9 +94,6 @@ endif
 """"""""""""""""""
 let mapleader = ","
 
-""" Insert Mode
-inoremap <c-g> <esc>
-
 """ Normal Mode
 nmap <silent><c-c> :nohlsearch<cr>
 nmap <leader>b :buffer<space>
