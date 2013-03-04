@@ -38,13 +38,12 @@
 	path = bundle/vim-golang
 	url = https://github.com/jnwhiteh/vim-golang
 	ignore = untracked
-[submodule "bundle/ack.vim"]
-	path = bundle/ack.vim
-	url = https://github.com/mileszs/ack.vim
-	ignore = untracked
 [submodule "bundle/vim-puppet"]
 	path = bundle/vim-puppet
 	url = https://github.com/rodjek/vim-puppet.git
 [submodule "bundle/vim-rsi"]
 	path = bundle/vim-rsi
 	url = https://github.com/tpope/vim-rsi.git
+[submodule "bundle/ag.vim"]
+	path = bundle/ag.vim
+	url = https://github.com/rking/ag.vim
