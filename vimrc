@@ -99,7 +99,7 @@ nmap <silent><c-c> :nohlsearch<cr>
 nmap <leader>b :buffer<space>
 nmap <leader><leader> :buffers<cr>
 nmap <leader>rc :split $MYVIMRC<cr>
-nmap <leader>ts :call StripTrailingSpace()<cr>
+nmap <leader>ts :call Preserve("%s/\\s\\+$//e")<CR>
 nnoremap <tab> %
 nnoremap ; :
 " Window Navigation
@@ -123,11 +123,17 @@ cmap w!! w !sudo tee % >/dev/null
 """
 
 " Utility functions
-function! StripTrailingSpace()
-  %s/\s\+$//
-  ''
+function! Preserve(command)
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
 endfunction
-"
 
 if has('gui_running')
   set guioptions=egmt
