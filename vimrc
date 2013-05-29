@@ -63,7 +63,7 @@ set visualbell      " don't beep! give me a visual bell.
 set suffixes=.bak,~,.o,.info,.swp,.obj,.pyc,.class " Ignore these suffixes.
 set history=1000
 set undolevels=1000
-"set hidden
+set hidden
 "set noswapfile
 "set nobackup
 
