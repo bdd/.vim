@@ -83,6 +83,7 @@ if has("autocmd")
   au FileType java set sts=4 sw=4 et cindent
   au FileType php set sts=4 sw=4 et cindent
   au BufEnter *.pxi set ft=pyrex
+  au BufEnter BUILD* set ft=python
 endif
 
 " TODO:
