@@ -26,9 +26,9 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
 
-  let s:homebrew_fzf = '/usr/local/opt/fzf'
-  if !empty(glob(s:homebrew_fzf))
-    Plug(s:homebrew_fzf)
+  let g:homebrew_fzf = '/usr/local/opt/fzf'
+  if !empty(glob(g:homebrew_fzf))
+    Plug g:homebrew_fzf
   else
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   endif
