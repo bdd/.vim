@@ -69,9 +69,9 @@ call <SID>Defn("Todo", "", "", "reverse")
 
 " Default group names -- ':h highlight-default'
 call <SID>Defn("Normal", s:foreground, s:background, "")
+call <SID>Defn("SpecialKey", s:fade, "", "")
 call <SID>Defn("CursorLineNr", s:fade, "", "")
 call <SID>Defn("LineNr", s:fade_more, "", "")
-call <SID>Link("SpecialKey", "LineNr") "unprintable chars like 'listchars'
 call <SID>Defn("VertSplit", s:fade, s:fade_more, "")
 call <SID>Link("StatusLineNC", "VertSplit")
 call <SID>Defn("StatusLine", "", "", "bold,reverse")
