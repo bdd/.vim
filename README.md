@@ -7,5 +7,5 @@ Things will probably work with somewhat older and also newer versions
 of Vim on other operatings systems.
 
 ## Installation ##
-After cloning repository run `vim --cmd 'install#all'` to download latest
+After cloning repository run `vim --cmd 'call install#all()'` to download latest
 `vim-plug` and initiate installation of plugins.
