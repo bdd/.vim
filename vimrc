@@ -1,108 +1,90 @@
-if !empty(glob("~/.vim/autoload/plug.vim"))
-call plug#begin()
+if !empty(glob('~/.vim/autoload/plug.vim'))
+  call plug#begin()
 
-Plug 'mileszs/ack.vim'
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-  cnoreabbrev ag Ack
-endif
+  Plug 'mileszs/ack.vim'
+  if executable('rg')
+    let g:ackprg = 'rg --smart-case --vimgrep'
+  elseif executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+  endif
 
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+  Plug 'tpope/vim-rsi'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-fugitive'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'scrooloose/nerdtree'
+  Plug 'fatih/vim-go'
+  Plug 'godlygeek/tabular'
 
-Plug 'scrooloose/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+  Plug 'scrooloose/syntastic'
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
 
-"Plug 'junegunn/fzf.vim'
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
-Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
-
-call plug#end()
+  call plug#end()
 endif
 
 " Terminal
-set t_ut= " Disable Background Control Erase (BCE)
+let &t_ut=''       " Disable Background Control Erase (BCE)
+let &t_ZH="\e[3m"  " terminal: italics mode begin
+let &t_ZR="\e[23m" " terminal: italics mode end
 
-" Enable file type detection with loading plugins & indent by file type.
-filetype plugin indent on
-
-" Use UTF-8 everywhere.
-set encoding=utf-8
-
-" Mouse
-"""""""
 if has('mouse')
   set mouse=a
 endif
 
-" Editing
-"""""""""""""
-""" Behavior
-set backspace=indent,eol,start
-""" Tabs
-set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-set smarttab
-set shiftround " round indent to multiple of 'shiftwidth'
-""" Indentation
-set autoindent copyindent
-""" Visual Indicators
-set showmatch " jump to matching bracket briefly
-"
+" Look and feel
+set statusline=[%n]\ %<%F\ %m%r%w%y%=\ (%l,%c)\ %P\ of\ %L
+if has('syntax')
+  syntax on
+  colorscheme noclown
+endif
 
-" Folding
-"""""""""""""
-set foldenable
-set foldmethod=marker " Triple-{ fold markers.
-" CMDs triggering auto-unfold.
-set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-"set foldcolumn=2        " Add a fold column.
-"
+" Enable file type detection with loading plugins & indent by file type.
+filetype plugin indent on
+
+" Behavior
+set hidden                     " don't close but hide the buffer when dismissed
+set splitbelow                 " new window below when `split`
+set splitright                 " new window right when `vsplit`
+set visualbell                 " don't beep! give me a visual bell.
+set autowrite                  " automatically save before :next, :make, :suspend
+set backspace=indent,eol,start " backspace over everything
+set showmatch                  " jump to matching bracket briefly
+set encoding=utf-8
+
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+set tabstop=8
+set smarttab    " XXX
+set shiftround  " XXX -- round indent to multiple of 'shiftwidth'
+set autoindent copyindent
 
 " Searching
-"""""""""""""""
-set hlsearch " highlight search terms.
-set incsearch " incrementally move to match.
 set ignorecase smartcase " case insensitive search if there are no capital letters.
-"
+set incsearch            " incrementally move to match and highlight
+set hlsearch             " highlight previous search pattern 
 
-" Appearance
-""""""""""""""""
-set cursorline      " highlight current line
-set number          " show line number
-set relativenumber  " relative line numbers for lines above and below
-set showcmd         " show last command
-set lazyredraw      " redraw only when needed
-set title           " set title of the terminal
-set shortmess=a     " a=all, use all abbrv possible in messages.
-set laststatus=2    " 2=always
-set statusline=[%n]\ %<%F\ %m%r%w%y%=\ (%l,%c)\ %P\ of\ %L
+set relativenumber                           "  relative line numbers for lines above and below
+set showcmd                                  "  show last command
+set shortmess=a                              "  a=all, use all abbrv possible in messages.
+set laststatus=2                             "  2=always
 set listchars=tab:▸·,trail:·,extends:#,nbsp:·
-set list            " display listchars by default.
-set ttyfast         " send more chars to tty to redraw.
-set scrolloff=5     " scroll edge offset (to keep some context)
-set wildmenu wildmode=list:longest " Command line completion in style!
-"
+set lazyredraw                               "  redraw only when needed
+set ttyfast                                  "  send more chars to tty to redraw.
+set scrolloff=5                              "  scroll edge offset (to keep some context)
+set wildmenu wildmode=list:longest           "  Command line completion in style!
 
-" Annoyances
-""""""""""""""""
-set visualbell      " don't beep! give me a visual bell.
-"
-
-set suffixes=.bak,~,.o,.info,.swp,.obj,.pyc,.class " Ignore these suffixes.
 set history=1000
 set undolevels=1000
-set hidden
-
 
 if has("autocmd")
   au FileType c set cindent
@@ -115,50 +97,43 @@ if has("autocmd")
   au FileType xhtml set smartindent
   au FileType scala set smartindent
   au FileType make set noexpandtab ts=4 sts=4 sw=4
+  au FileType go set nolist noet ts=8 sts=0 sw=0
   au BufEnter *.pxi set ft=pyrex
   au BufEnter BUILD* set ft=python
   au BufEnter TARGET set ft=python
 endif
 
 " TODO:
-"set noswapfile
-"set nobackup
 " - Backup file
 " - Swap file
 " - Undo File
+" * folds
+" * buffer navigation
 
 " Key mappings
-""""""""""""""""""
-let mapleader = ","
+let mapleader = "\<Space>"
 
-""" Normal Mode
-nmap <silent><c-c> :nohlsearch<cr>
-nmap <leader>b :buffer<space>
-nmap <leader><leader> :buffers<cr>
-nmap <leader>rc :split $MYVIMRC<cr>
-nmap <leader>ts :call Preserve("%s/\\s\\+$//e")<CR>
-nnoremap <tab> %
+" Normal Mode
 nnoremap ; :
+nnoremap <Tab> %
+nmap <Leader>b :buffer<space>
+nmap <Leader><Leader> :buffers<CR>
+nmap <Leader>rc :split $MYVIMRC<CR>
+nmap <Leader>ts :call Preserve('%s/\\s\\+$//e')<CR>
+nmap <silent><C-C> :nohlsearch<CR>
+nmap <C-V>s :echo SyntaxItem()<CR>
+
 " Window Navigation
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-"
-
-""" Command Mode
-cmap w!! w !sudo tee % >/dev/null
-"
-
-""" TODO: Buffer Navigation
-""" TODO: Tab Navigation
-"""
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
 
 " Utility functions
 function! Preserve(command)
   let l:saved_search = @/
-  let l:line = line(".")
-  let l:col = col(".")
+  let l:line = line('.')
+  let l:col = col('.')
 
   execute a:command
 
@@ -166,7 +141,31 @@ function! Preserve(command)
   call cursor(l:line, l:col)
 endfunction
 
-if has("syntax")
-  syntax on
-  silent! colorscheme Tomorrow-Night-Eighties
-endif
+function! SyntaxItem()
+  " Return the names in syntax identifier chain for the symbol under cursor.
+  " Chain is a '->' delimited string of linked syntax identifier names from
+  " leaf to root.
+  let l:cur_sid = synID(line('.'), col('.'), 1)
+  let l:prev_sid = 0
+  let l:chain = []
+
+  while l:cur_sid != l:prev_sid
+    let l:chain += [l:cur_sid]
+    let l:prev_sid = l:cur_sid
+    let l:cur_sid = synIDtrans(l:cur_sid)
+  endwhile
+
+  let l:chain_str = ''
+  let i = 0
+  let l = len(l:chain_str)
+  for sid in l:chain
+    let l:chain_str .= synIDattr(sid, 'name')
+    if sid != l:chain[-1]
+      let l:chain_str .= ' -> '
+    endif
+  endfor
+
+  return l:chain_str
+endfunction
+
+call install#post_install()
