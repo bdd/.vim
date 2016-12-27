@@ -7,4 +7,5 @@ Things will probably work with somewhat older and also newer versions
 of Vim on other operatings systems.
 
 ## Installation ##
-Plugins will be installed only when `PlugInstall` command is run.
+After cloning repository run `vim --cmd 'install#all'` to download latest
+`vim-plug` and initiate installation of plugins.
