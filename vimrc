@@ -156,22 +156,14 @@ function! SyntaxItem()
   let l:chain = []
 
   while l:cur_sid != l:prev_sid
-    let l:chain += [l:cur_sid]
+    call add(l:chain, l:cur_sid)
     let l:prev_sid = l:cur_sid
     let l:cur_sid = synIDtrans(l:cur_sid)
   endwhile
 
-  let l:chain_str = ''
-  let i = 0
-  let l = len(l:chain_str)
-  for sid in l:chain
-    let l:chain_str .= synIDattr(sid, 'name')
-    if sid != l:chain[-1]
-      let l:chain_str .= ' -> '
-    endif
-  endfor
-
-  return l:chain_str
+  return join(
+        \ map(l:chain, 'synIDattr(v:val, "name")'),
+        \ '->')
 endfunction
 
 " Commands
