@@ -126,7 +126,6 @@ nnoremap <Tab> %
 nmap <Leader>b :buffer<space>
 nmap <Leader><Leader> :buffers<CR>
 nmap <Leader>rc :split $MYVIMRC<CR>
-nmap <Leader>ts :call Preserve('%s/\\s\\+$//e')<CR>
 nmap <silent><C-C> :nohlsearch<CR>
 nmap <C-V>s :echo SyntaxItem()<CR>
 
@@ -175,4 +174,6 @@ function! SyntaxItem()
   return l:chain_str
 endfunction
 
+" Commands
+command! -nargs=0 StripTrailingSpaces call Preserve("%s/\\s\\+$//e")
 call install#post_install()
