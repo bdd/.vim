@@ -78,7 +78,7 @@ set autoindent copyindent
 " Searching
 set ignorecase smartcase " case insensitive search if there are no capital letters.
 set incsearch            " incrementally move to match and highlight
-set hlsearch             " highlight previous search pattern 
+set hlsearch             " highlight previous search pattern
 
 set relativenumber                           "  relative line numbers for lines above and below
 set showcmd                                  "  show last command
@@ -176,4 +176,6 @@ endfunction
 
 " Commands
 command! -nargs=0 StripTrailingSpaces call Preserve("%s/\\s\\+$//e")
+
+" Execute post-install hooks
 call install#post_install()
