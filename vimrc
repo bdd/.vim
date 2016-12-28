@@ -1,4 +1,4 @@
-if !empty(glob('~/.vim/autoload/plug.vim'))
+if !empty(glob(install#vim_plug_vim))
   call plug#begin()
 
   Plug 'mileszs/ack.vim'
