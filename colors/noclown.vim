@@ -14,78 +14,128 @@
 " This work is published from: United States.
 
 
-let s:foreground = 250 "Grey74 - #bcbcbc
-let s:background = 234 "Grey11 - #1c1c1c
-let s:fade       = 245 "Grey54 - #8a8a8a
-let s:fade_more  = 238 "Grey27 - #444444
-let s:attention  = 230 "Cornsilk1 - #ffffd7
-let s:red        = 203 "IndianRed1 - #ff5f5f
-
-set background=dark
-
 highlight clear
 if exists('syntax_on')
   syntax reset
 endif
-
 let g:colors_name = "noclown"
 
-function! <SID>Defn(group, fg, bg, attr)
-  let c = {'fg': a:fg, 'bg': a:bg, 'attr': a:attr}
-  for k in keys(c)
-    if c[k] == "" | let c[k] = "NONE" | endif
-  endfor
+" Terminals that don't support italics, resort to rendering them as standout.
+" For comments and other things we italicize, this can become annoying very
+" quickly.  We are going to ignore 'italic' attribute if the terminal doesn't
+" know about it.
+if (has('gui_running') ||
+      \ has('unix') && system('tput sitm') == "\e[3m")
+  let g:noclown_has_italics = 1
+endif
 
-  exec "highlight "
-    \ . a:group
-    \ . " term=" . c['attr']
-    \ . " cterm=" . c['attr'] . " ctermfg=" . c['fg'] . " ctermbg=" . c['bg']
+if &background == 'dark'
+  let s:palette = {
+        \ 'foreground' : [250, '#bcbcbc'],
+        \ 'background' : [234, '#1c1c1c'],
+        \ 'fade'       : [245, '#8a8a8a'],
+        \ 'fade_more'  : [238, '#444444'],
+        \ 'attention'  : [230, '#ffffd7'],
+        \ 'err'        : [203, '#ff5f5f'],
+        \}
+else
+  let s:palette = {
+        \ 'attention'  : [250, '#bcbcbc'],
+        \ 'foreground' : [234, '#1c1c1c'],
+        \ 'fade_more'  : [245, '#8a8a8a'],
+        \ 'fade'       : [238, '#444444'],
+        \ 'background' : [230, '#ffffd7'],
+        \ 'err'        : [203, '#ff5f5f'],
+        \}
+endif
+
+function! s:fg(name)
+  let [ctermfg, guifg] = s:palette[a:name]
+  return {'ctermfg': ctermfg, 'guifg': guifg}
 endfunction
 
-function! <SID>None(...)
-  for group in a:000
-    execute "highlight " . group . " NONE"
+function! s:bg(name)
+  let [ctermbg, guibg] = s:palette[a:name]
+  return {'ctermbg': ctermbg, 'guibg': guibg}
+endfunction
+
+function! s:attr(...)
+  let alist = a:000
+
+  if !exists('g:noclown_has_italics')
+    " We're going to modify the list, so make a copy (a:* are immutable)
+    let alist = copy(a:000)
+    call filter(alist, 'v:val != "italic"')
+  endif
+
+  " attrs: comma separated 'alist' as string or if empty: 'NONE'
+  let attrs = empty(alist) ? 'NONE' : join(alist, ',')
+
+  return {'term': attrs, 'cterm': attrs, 'gui': attrs}
+endfunction
+
+" Clear every attribute to NONE to avoid inheriting from default colorscheme.
+let s:hi_clear = {}
+for key in ['term', 'cterm', 'ctermfg', 'ctermbg', 'gui', 'guifg', 'guibg']
+  let s:hi_clear[key] = 'NONE'
+endfor
+
+function! <SID>Defn(group, ...)
+  let hi_dict = copy(s:hi_clear)
+
+  " Merge attribute group definitions to main dictionary
+  for setting in a:000
+    call extend(hi_dict, setting)
   endfor
+
+  let hi_expr = 'highlight ' . a:group  . ' '
+  " Convert { k1: v1, k2: v2, ..., kn: vn} dictionary to 'k1=v1 k2=v2 ... kn=vn' string
+  let hi_expr .= join(map(items(hi_dict), 'join(v:val, "=")'), ' ')
+
+  execute hi_expr
+endfunction
+
+function! <SID>None(group)
+  execute 'highlight ' . a:group . ' NONE'
 endfunction
 
 function! <SID>Link(from, to)
   call <SID>None(a:from)
-  execute "highlight link " . a:from . " " . a:to
+  execute 'highlight link ' . a:from . ' ' . a:to
 endfunction
 
-
 " Suggested group names from naming conventions -- ':h E669'
-call <SID>Defn("Comment", s:fade, "", "italic")
-call <SID>None("Constant") "<- String Character Number Boolean Float
-call <SID>None("Identifier") "<- Function
-call <SID>None("Statement") "<- Conditional Repeat Label Operator Keyword Exception
-call <SID>None("PreProc") "<- Include Define Macro PreCondit
-call <SID>None("Type") "<- StorageClass Structure Typedef
-call <SID>None("Special") "<- SpecialChar Tag Delimiter SpecialComment Debug
-call <SID>Defn("Underlined", "", "", "underline")
-call <SID>Defn("Ignore", s:fade_more, "", "")
-call <SID>Defn("Error", s:red, "", "")
-call <SID>Defn("Todo", "", "", "reverse")
+call <SID>Defn('Comment', s:fg('fade'), s:attr('italic'))
+call <SID>None('Constant') "<- String Character Number Boolean Float
+call <SID>None('Identifier') "<- Function
+call <SID>None('Statement') "<- Conditional Repeat Label Operator Keyword Exception
+call <SID>None('PreProc') "<- Include Define Macro PreCondit
+call <SID>None('Type') "<- StorageClass Structure Typedef
+call <SID>None('Special') "<- SpecialChar Tag Delimiter SpecialComment Debug
+call <SID>Defn('Underlined', s:attr('underline'))
+call <SID>Defn('Ignore', s:fg('fade_more'))
+call <SID>Defn('Error', s:fg('err'))
+call <SID>Defn('Todo', s:attr('reverse'))
 
 " Default group names -- ':h highlight-default'
-call <SID>Defn("Normal", s:foreground, s:background, "")
-call <SID>Defn("SpecialKey", s:fade, "", "")
-call <SID>Defn("CursorLineNr", s:fade, "", "")
-call <SID>Defn("LineNr", s:fade_more, "", "")
-call <SID>Defn("VertSplit", s:fade, s:fade_more, "")
-call <SID>Link("StatusLineNC", "VertSplit")
-call <SID>Defn("StatusLine", "", "", "bold,reverse")
-call <SID>Defn("IncSearch", s:attention, "", "")
-call <SID>Defn("Search", s:attention, "", "reverse")
-call <SID>Defn("Title", s:attention, "", "bold") "titles for output from ':set all', ':autocmd' etc.  
-call <SID>Defn("Visual", "", "", "reverse")
-call <SID>Defn("ErrorMsg", s:red, "", "")
-call <SID>None("CursorLine")
-call <SID>Defn("MatchParen", "", "", "reverse")
+call <SID>Defn('Normal', s:fg('foreground'), s:bg('background'))
+call <SID>Defn('SpecialKey', s:fg('fade'))
+call <SID>Defn('CursorLineNr', s:fg('fade'))
+call <SID>Defn('LineNr', s:fg('fade_more'))
+call <SID>Defn('VertSplit', s:fg('fade'), s:bg('fade_more'))
+call <SID>Link('StatusLineNC', 'VertSplit')
+call <SID>Defn('StatusLine', s:attr('bold', 'reverse'))
+call <SID>Defn('IncSearch', s:fg('attention'))
+call <SID>Defn('Search', s:fg('attention'), s:attr('reverse'))
+call <SID>Defn('Title', s:fg('attention'), s:attr('bold')) "titles for output from ':set all', ':autocmd' etc.
+call <SID>Defn('Visual', s:attr('reverse'))
+call <SID>Defn('ErrorMsg', s:fg('err'))
+call <SID>None('CursorLine')
+call <SID>Defn('MatchParen', s:attr('reverse'))
 
 """"
 """ Unmodified groups from default group names list.
-""" They retain their colorscheme from Vim's default for 'background=dark'.
+""" They retain their colorscheme from Vim's defaults.
 """
 "ColorColumn	used for the columns set with 'colorcolumn'
 "Conceal		placeholder characters substituted for concealed

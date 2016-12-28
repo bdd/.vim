@@ -50,6 +50,7 @@ endif
 set statusline=[%n]\ %<%F\ %m%r%w%y%=\ (%l,%c)\ %P\ of\ %L
 if has('syntax')
   syntax on
+  set background=dark
   colorscheme noclown
 endif
 
