@@ -30,7 +30,7 @@ if !empty(glob(install#vim_plug_vim))
   if !empty(glob(g:homebrew_fzf))
     Plug g:homebrew_fzf
   else
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+    Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin'}
   endif
   Plug 'junegunn/fzf.vim'
 
@@ -39,7 +39,8 @@ endif
 
 " Terminal
 if exists('$TMUX')
-  let &t_ut=''       " Disable Background Control Erase (BCE)
+ " Disable Background Control Erase (BCE)
+  set t_ut=
 endif
 
 if has('mouse')
