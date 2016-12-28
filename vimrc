@@ -38,15 +38,8 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 " Terminal
-let &t_ut=''       " Disable Background Control Erase (BCE)
-let &t_ZH="\e[3m"  " terminal: italics mode begin
-let &t_ZR="\e[23m" " terminal: italics mode end
 if exists('$TMUX')
-  function WrapWithDCS(cmd)
-    return "\eP" . "tmux" . ";\e" . a:cmd . "\e\\"
-  endfunction
-  let &t_ZH=WrapWithDCS(&t_ZH)
-  let &t_ZR=WrapWithDCS(&t_ZR)
+  let &t_ut=''       " Disable Background Control Erase (BCE)
 endif
 
 if has('mouse')
