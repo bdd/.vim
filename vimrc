@@ -59,43 +59,43 @@ endif
 filetype plugin indent on
 
 " Behavior
-set hidden                     " don't close but hide the buffer when dismissed
-set splitbelow                 " new window below when `split`
-set splitright                 " new window right when `vsplit`
-set visualbell                 " don't beep! give me a visual bell.
-set autowrite                  " automatically save before :next, :make, :suspend
-set backspace=indent,eol,start " backspace over everything
-set showmatch                  " jump to matching bracket briefly
+set hidden  " don't close but hide the buffer when dismissed
+set splitbelow  " new window below when `split`
+set splitright  " new window right when `vsplit`
+set visualbell  " don't beep! give me a visual bell.
+set autowrite  " automatically save before :next, :make, :suspend
+set backspace=indent,eol,start  " backspace over everything
+set showmatch  " jump to matching bracket briefly
 set encoding=utf-8
 
-set expandtab
-set softtabstop=2
-set shiftwidth=2
-set tabstop=8
-set smarttab    " XXX
-set shiftround  " XXX -- round indent to multiple of 'shiftwidth'
-set autoindent copyindent
+set expandtab  " spaces over tabs for indentation
+set softtabstop=2  " without wasting to much screen estate
+set shiftwidth=2  " shift equally to indendation
+set tabstop=8  " tabs are 8 chars for a good reason, keep it that way
+set autoindent  " always-be-indenting
+set copyindent  " copy the existing indenting behavior of file
 
 " By default do not persist undo history but move storage under ~/.vim for the
 " cases undo persistence might have been enabled for a particular filetype, etc.
 set noundofile undodir=~/.vim/.undo/
 
-" Searching
-set ignorecase smartcase " case insensitive search if there are no capital letters.
-set incsearch            " incrementally move to match and highlight
-set hlsearch             " highlight previous search pattern
-
-set relativenumber                           "  relative line numbers for lines above and below
-set showcmd                                  "  show last command
-set shortmess=a                              "  a=all, use all abbrv possible in messages.
-set laststatus=2                             "  2=always
-set listchars=tab:▸·,trail:·,extends:#,nbsp:·
-set lazyredraw                               "  redraw only when needed
-set ttyfast                                  "  send more chars to tty to redraw.
-set scrolloff=5                              "  scroll edge offset (to keep some context)
-set wildmenu wildmode=list:longest           "  Command line completion in style!
-
+" Command and search pattern history
 set history=1000
+
+" Searching
+set ignorecase smartcase  " case insensitive search if there are no capital letters.
+set incsearch  " incrementally move to match and highlight
+set hlsearch  " highlight previous search pattern
+
+set relativenumber  " relative line numbers for lines above and below
+set showcmd  " show last command
+set shortmess=a  " a=all, use all abbrv possible in messages.
+set laststatus=2  " 2=always
+set lazyredraw  " redraw only when needed
+set ttyfast  " send more chars to tty to redraw.
+set scrolloff=5  " scroll edge offset (to keep some context)
+set wildmenu wildmode=list:longest
+set listchars=tab:▸·,trail:·,extends:#,nbsp:·
 
 if has("autocmd")
   au FileType c set cindent
