@@ -35,8 +35,7 @@ function s:install_vim_plug()
     let l:output = system(l:cmd . ' 2>&1')
 
     if v:shell_error
-      echomsg 'Error downloading vim-plug: ' . l:output
-      return 0
+      throw 'Error downloading vim-plug: ' . l:output
     endif
 
     call add(s:post_install_cmds, 'if exists("g:loaded_plug") | PlugInstall | endif')
