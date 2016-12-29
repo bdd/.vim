@@ -76,6 +76,10 @@ set smarttab    " XXX
 set shiftround  " XXX -- round indent to multiple of 'shiftwidth'
 set autoindent copyindent
 
+" By default do not persist undo history but move storage under ~/.vim for the
+" cases undo persistence might have been enabled for a particular filetype, etc.
+set noundofile undodir=~/.vim/.undo/
+
 " Searching
 set ignorecase smartcase " case insensitive search if there are no capital letters.
 set incsearch            " incrementally move to match and highlight
@@ -92,7 +96,6 @@ set scrolloff=5                              "  scroll edge offset (to keep some
 set wildmenu wildmode=list:longest           "  Command line completion in style!
 
 set history=1000
-set undolevels=1000
 
 if has("autocmd")
   au FileType c set cindent
@@ -110,13 +113,6 @@ if has("autocmd")
   au BufEnter BUILD* set ft=python
   au BufEnter TARGET set ft=python
 endif
-
-" TODO:
-" - Backup file
-" - Swap file
-" - Undo File
-" * folds
-" * buffer navigation
 
 " Key mappings
 let mapleader = "\<Space>"
@@ -172,3 +168,6 @@ command -nargs=0 StripTrailingSpaces call Preserve("%s/\\s\\+$//e")
 
 " Execute post-install hooks
 call install#post_install()
+
+" modeline
+""" vim: undofile
