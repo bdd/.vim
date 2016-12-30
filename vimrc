@@ -39,8 +39,12 @@ endif
 
 " Terminal
 if exists('$TMUX')
- " Disable Background Control Erase (BCE)
+  " Disable Background Control Erase (BCE)
   set t_ut=
+
+  " 'xterm2' type supports dragging events, used when resizing windows.
+  " Although Tmux supports it, Vim sets the value to 'xterm'.
+  set ttymouse=xterm2
 endif
 
 if has('mouse')
