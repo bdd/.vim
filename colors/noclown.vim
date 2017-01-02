@@ -35,17 +35,19 @@ if &background == 'dark'
         \ 'background' : [234, '#1c1c1c'],
         \ 'fade'       : [245, '#8a8a8a'],
         \ 'fade_more'  : [238, '#444444'],
-        \ 'attention'  : [230, '#ffffd7'],
-        \ 'err'        : [203, '#ff5f5f'],
+        \ 'highlight'  : [230, '#ffffd7'],
+        \ 'attention'  : [224, '#ffd7d7'],
+        \ 'error'      : [203, '#ff5f5f'],
         \ }
 else
   let s:palette = {
-        \ 'attention'  : [250, '#bcbcbc'],
+        \ 'highlight'  : [250, '#bcbcbc'],
         \ 'foreground' : [234, '#1c1c1c'],
         \ 'fade_more'  : [245, '#8a8a8a'],
         \ 'fade'       : [238, '#444444'],
         \ 'background' : [230, '#ffffd7'],
-        \ 'err'        : [203, '#ff5f5f'],
+        \ 'attention'  : [224, '#ffd7d7'],
+        \ 'error'      : [203, '#ff5f5f'],
         \ }
 endif
 
@@ -114,24 +116,44 @@ call s:None('Type') "<- StorageClass Structure Typedef
 call s:None('Special') "<- SpecialChar Tag Delimiter SpecialComment Debug
 call s:Defn('Underlined', s:attr('underline'))
 call s:Defn('Ignore', s:fg('fade_more'))
-call s:Defn('Error', s:fg('err'))
+call s:Defn('Error', s:fg('error'))
 call s:Defn('Todo', s:attr('reverse'))
 
 " Default group names -- ':h highlight-default'
 call s:Defn('Normal', s:fg('foreground'), s:bg('background'))
+
 call s:Defn('SpecialKey', s:fg('fade'))
-call s:Defn('CursorLineNr', s:fg('fade'))
-call s:Defn('LineNr', s:fg('fade_more'))
+call s:Defn('NonText', s:fg('fade_more'))
+call s:Link('CursorLineNr', 'SpecialKey')
+call s:Link('LineNr', 'NonText')
+call s:None('CursorLine')
+
 call s:Defn('VertSplit', s:fg('fade'), s:bg('fade_more'))
 call s:Link('StatusLineNC', 'VertSplit')
-call s:Defn('StatusLine', s:attr('bold', 'reverse'))
-call s:Defn('IncSearch', s:fg('attention'))
-call s:Defn('Search', s:fg('attention'), s:attr('reverse'))
-call s:Defn('Title', s:fg('attention'), s:attr('bold')) "titles for output from ':set all', ':autocmd' etc.
+
+call s:Defn('StatusLine', s:attr('reverse'))
 call s:Defn('Visual', s:attr('reverse'))
-call s:Defn('ErrorMsg', s:fg('err'))
-call s:None('CursorLine')
 call s:Defn('MatchParen', s:attr('reverse'))
+
+call s:Defn('Title', s:fg('highlight'))  " titles for output from ':set all', ':autocmd' etc.
+call s:Link('Question', 'Title')
+call s:Link('MoreMsg', 'Title')
+call s:Link('IncSearch', 'Title')
+call s:Defn('Search', s:fg('highlight'), s:attr('reverse'))
+call s:Link('WildMenu', 'Search')
+
+call s:Defn('WarningMsg', s:fg('attention'))
+call s:Defn('ErrorMsg', s:fg('error'))
+
+call s:Defn('Pmenu', s:bg('fade_more'))
+call s:Defn('PMenuSel', s:fg('highlight'), s:bg('fade'))
+call s:Defn('PMenuSbar', s:fg('fade'), s:bg('fade'))
+call s:Defn('PMenuThumb', s:fg('fade'), s:bg('highlight'))
+
+call s:Defn('SpellBad', s:fg('attention'), s:attr('italic'))
+call s:Link('SpellCap', 'Underlined')
+call s:Link('SpellLocal', 'SpellCap')
+call s:Link('SpellRare', 'SpellCap')
 
 """"
 """ Unmodified groups from default group names list.
@@ -155,30 +177,8 @@ call s:Defn('MatchParen', s:attr('reverse'))
 "FoldColumn	'foldcolumn'
 "SignColumn	column where |signs| are displayed
 "ModeMsg		'showmode' message (e.g., "-- INSERT --")
-"MoreMsg		|more-prompt|
-"NonText		'@' at the end of the window, characters from 'showbreak'
-"		and other characters that do not really exist in the text
-"		(e.g., ">" displayed when a double-wide character doesn't
-"		fit at the end of the line).
-"Pmenu		Popup menu: normal item.
-"PmenuSel	Popup menu: selected item.
-"PmenuSbar	Popup menu: scrollbar.
-"PmenuThumb	Popup menu: Thumb of the scrollbar.
-"Question	|hit-enter| prompt and yes/no questions
-"SpellBad	Word that is not recognized by the spellchecker. |spell|
-"		This will be combined with the highlighting used otherwise.
-"SpellCap	Word that should start with a capital. |spell|
-"		This will be combined with the highlighting used otherwise.
-"SpellLocal	Word that is recognized by the spellchecker as one that is
-"		used in another region. |spell|
-"		This will be combined with the highlighting used otherwise.
-"SpellRare	Word that is recognized by the spellchecker as one that is
-"		hardly ever used. |spell|
-"		This will be combined with the highlighting used otherwise.
 "TabLine		tab pages line, not active tab page label
 "TabLineFill	tab pages line, where there are no labels
 "TabLineSel	tab pages line, active tab page label
 "VisualNOS	Visual mode selection when vim is "Not Owning the Selection".
 "		Only X11 Gui's |gui-x11| and |xterm-clipboard| supports this.
-"WarningMsg	warning messages
-"WildMenu	current match in 'wildmenu' completion
