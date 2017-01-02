@@ -168,7 +168,7 @@ function! SyntaxItem()
 endfunction
 
 " Commands
-command -nargs=0 StripTrailingSpaces call Preserve("%s/\\s\\+$//e")
+command! -nargs=0 StripTrailingSpaces call Preserve("%s/\\s\\+$//e")
 
 " Execute post-install hooks
 call install#post_install()
