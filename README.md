@@ -8,8 +8,8 @@ of Vim on other operatings systems.
 
 ## Installation ##
 ### Fix your xterm-256color first ###
-macOS Sierra still ships with a buster terminfo for `xterm-256color` missing escape codes for
-italics, although Terminal.app supports them.
+macOS Sierra still ships with a busted terminfo for `xterm-256color`, missing escape codes for
+italics; although Terminal.app supports them.
 
 Just modify it instead of creating a '-italic' variant.
 
