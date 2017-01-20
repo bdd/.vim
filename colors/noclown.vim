@@ -155,6 +155,14 @@ call s:Link('SpellCap', 'Underlined')
 call s:Link('SpellLocal', 'SpellCap')
 call s:Link('SpellRare', 'SpellCap')
 
+call s:Defn('Folded', s:fg('highlight'), s:bg('fade'))
+call s:Defn('FoldColumn', s:fg('highlight'), s:bg('fade_more'))
+
+call s:Defn('DiffAdd', s:attr('bold'), s:bg('fade_more'))
+call s:Defn('DiffChange', s:bg('fade_more'))
+call s:Defn('DiffDelete', s:fg('error'), s:bg('fade_more'))
+call s:Defn('DiffText', s:bg('attention'), s:fg('background'))
+
 """"
 """ Unmodified groups from default group names list.
 """ They retain their colorscheme from Vim's defaults.
@@ -167,14 +175,8 @@ call s:Link('SpellRare', 'SpellCap')
 "CursorColumn	the screen column that the cursor is in when 'cursorcolumn' is
 "		set
 "Directory	directory names (and other special names in listings)
-"DiffAdd		diff mode: Added line |diff.txt|
-"DiffChange	diff mode: Changed line |diff.txt|
-"DiffDelete	diff mode: Deleted line |diff.txt|
-"DiffText	diff mode: Changed text within a changed line |diff.txt|
 "EndOfBuffer	filler lines (~) after the last line in the buffer.
 "		By default, this is highlighted like |hl-NonText|.
-"Folded		line used for closed folds
-"FoldColumn	'foldcolumn'
 "SignColumn	column where |signs| are displayed
 "ModeMsg		'showmode' message (e.g., "-- INSERT --")
 "TabLine		tab pages line, not active tab page label
