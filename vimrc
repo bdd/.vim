@@ -113,6 +113,7 @@ if has("autocmd")
   au FileType scala set smartindent
   au FileType make set noexpandtab ts=4 sts=4 sw=4
   au FileType go set nolist noet ts=8 sts=0 sw=0
+  au FileType gitconfig set nolist noet ts=8 sts=0 sw=0
   au BufEnter *.pxi set ft=pyrex
   au BufEnter BUILD* set ft=python
   au BufEnter TARGET set ft=python
