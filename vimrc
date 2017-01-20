@@ -137,6 +137,10 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
+" Insert Mode
+" Use <CR> to select completion suggestion instead of <C-y>
+inoremap <expr> <CR> pumvisible() ? ("\<C-y>") : ("\<CR>")
+
 " Utility functions
 function! Preserve(command)
   let l:saved_search = @/
