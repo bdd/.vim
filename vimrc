@@ -129,7 +129,7 @@ nnoremap <Tab> %
 nmap <Leader>b :buffer<space>
 nmap <Leader><Leader> :buffers<CR>
 nmap <Leader>rc :split $MYVIMRC<CR>
-nmap <silent><Leader>/ :nohlsearch<CR>
+nmap <silent> <Leader>/ :nohlsearch<CR>
 nmap <C-V>s :echo SyntaxItem()<CR>
 
 " Window Navigation

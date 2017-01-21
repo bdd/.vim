@@ -1,10 +1,7 @@
-# bdd's Vim #
-Berk D. Demir's Vim configuration.
+# [bdd]'s Vim #
 
 ## Version ##
-Target version is Vi IMproved 8.0 on macOS Sierra (10.12).
-Things will probably work with somewhat older and also newer versions
-of Vim on other operating systems.
+Target version is Vim 8.0 on macOS and Linux.
 
 ## Installation ##
 ### Fix your xterm-256color first ###
@@ -23,11 +20,11 @@ other configuration needed.
 
 #### A font family with italics ####
 You won't see italics in the terminal if your choice of font family doesn't
-have them.  Under macOS, default monospaced font Monaco doesn't have italics
-but Menlo has.
+have them.  Under macOS, default monospace font, Monaco doesn't have italics
+but Menlo does.
 
-I find [Go Mono family][] to be delightful both in the terminal or GUI.  If you use
-[Homebrew][], you can install it through Fonts Cask.
+I find [Go Mono family] to be delightful both in the terminal and GUI.  If you use
+[Homebrew], you can install it through Fonts Cask.
 
 ```
 % brew tap caskroom/fonts
@@ -45,5 +42,6 @@ Launch Vim as:
 ```
 
 
+[bdd]: https://bdd.fi
 [Go Mono family]: https://blog.golang.org/go-fonts
 [Homebrew]: https://brew.sh
