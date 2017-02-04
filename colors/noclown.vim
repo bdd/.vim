@@ -29,27 +29,15 @@ if (has('gui_running') ||
   let g:noclown_has_italics = 1
 endif
 
-if &background == 'dark'
-  let s:palette = {
-        \ 'foreground' : [250, '#bcbcbc'],
-        \ 'background' : [234, '#1c1c1c'],
-        \ 'fade'       : [245, '#8a8a8a'],
-        \ 'fade_more'  : [238, '#444444'],
-        \ 'highlight'  : [230, '#ffffd7'],
-        \ 'attention'  : [224, '#ffd7d7'],
-        \ 'error'      : [203, '#ff5f5f'],
-        \ }
-else
-  let s:palette = {
-        \ 'highlight'  : [250, '#bcbcbc'],
-        \ 'foreground' : [234, '#1c1c1c'],
-        \ 'fade_more'  : [245, '#8a8a8a'],
-        \ 'fade'       : [238, '#444444'],
-        \ 'background' : [230, '#ffffd7'],
-        \ 'attention'  : [224, '#ffd7d7'],
-        \ 'error'      : [203, '#ff5f5f'],
-        \ }
-endif
+let s:palette = {
+      \ 'foreground' : [250, '#bcbcbc'],
+      \ 'background' : [234, '#1c1c1c'],
+      \ 'fade'       : [245, '#8a8a8a'],
+      \ 'fade_more'  : [238, '#444444'],
+      \ 'highlight'  : [230, '#ffffd7'],
+      \ 'attention'  : [224, '#ffd7d7'],
+      \ 'error'      : [203, '#ff5f5f'],
+      \ }
 
 function! s:fg(name)
   let [l:ctermfg, l:guifg] = s:palette[a:name]
