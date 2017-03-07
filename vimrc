@@ -83,6 +83,9 @@ set copyindent  " copy the existing indenting behavior of file
 " cases undo persistence might have been enabled for a particular filetype, etc.
 set noundofile undodir=~/.vim/.undo/
 
+" Keep viminfo file under ~/.vim instead of home.
+set viminfo+=n~/.vim/.viminfo
+
 " Command and search pattern history
 set history=1000
 
