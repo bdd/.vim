@@ -18,13 +18,11 @@ if !empty(glob(install#vim_plug_vim))
   Plug 'godlygeek/tabular'
 
   Plug 'scrooloose/syntastic'
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
   let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
+  let g:syntastic_auto_loc_list = 2  " close loc list when no errors left
+  let g:syntastic_loc_list_height = 5  " use a smaller location list (default: 10)
+  let g:syntastic_stl_format = "<Syntax: %e Err, %w Warn>"
 
   let g:homebrew_fzf = '/usr/local/opt/fzf'
   if !empty(glob(g:homebrew_fzf))
@@ -52,7 +50,12 @@ if has('mouse')
 endif
 
 " Look and feel
-set statusline=[%n]\ %<%F\ %m%r%w%y%=\ (%l,%c)\ %P\ of\ %L
+set statusline=[%n]\ %<%F\ %m%r%w%y%=
+if exists('g:loaded_syntastic_plugin')
+  set statusline+=%#WarningMsg#%{SyntasticStatuslineFlag()}%*
+endif
+set statusline+=\ (%l,%c)\ %P\ of\ %L
+
 if has('syntax')
   syntax on
   set background=dark
