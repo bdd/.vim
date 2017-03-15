@@ -12,6 +12,7 @@ if !empty(glob(install#vim_plug_vim))
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-unimpaired'
   Plug 'scrooloose/nerdcommenter'
   Plug 'scrooloose/nerdtree'
   Plug 'fatih/vim-go'
