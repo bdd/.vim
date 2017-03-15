@@ -1,6 +1,19 @@
 if !empty(glob(install#vim_plug_vim))
   call plug#begin()
 
+  " Order by GitHub user/project
+
+  Plug 'fatih/vim-go'
+  Plug 'godlygeek/tabular'
+
+  Plug 'junegunn/fzf.vim'
+  let g:homebrew_fzf = '/usr/local/opt/fzf'
+  if !empty(glob(g:homebrew_fzf))
+    Plug g:homebrew_fzf
+  else
+    Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin'}
+  endif
+
   Plug 'mileszs/ack.vim'
   if executable('rg')
     let g:ackprg = 'rg --smart-case --vimgrep'
@@ -8,16 +21,8 @@ if !empty(glob(install#vim_plug_vim))
     let g:ackprg = 'ag --vimgrep'
   endif
 
-  Plug 'tpope/vim-rsi'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-eunuch'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-unimpaired'
   Plug 'scrooloose/nerdcommenter'
   Plug 'scrooloose/nerdtree'
-  Plug 'fatih/vim-go'
-  Plug 'godlygeek/tabular'
-
   Plug 'scrooloose/syntastic'
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_check_on_wq = 0
@@ -25,13 +30,11 @@ if !empty(glob(install#vim_plug_vim))
   let g:syntastic_loc_list_height = 5  " use a smaller location list (default: 10)
   let g:syntastic_stl_format = "<Syntax: %e Err, %w Warn>"
 
-  let g:homebrew_fzf = '/usr/local/opt/fzf'
-  if !empty(glob(g:homebrew_fzf))
-    Plug g:homebrew_fzf
-  else
-    Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin'}
-  endif
-  Plug 'junegunn/fzf.vim'
+  Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-rsi'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-unimpaired'
 
   call plug#end()
 endif
