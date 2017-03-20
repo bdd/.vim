@@ -1,6 +1,5 @@
-if !empty(glob(install#vim_plug_vim))
-  call plug#begin()
-
+silent! call plug#begin()
+if exists('g:loaded_plug') && g:loaded_plug == 1
   " Order by GitHub user/project
 
   Plug 'fatih/vim-go'
@@ -63,7 +62,7 @@ set statusline+=\ (%l,%c)\ %P\ of\ %L
 if has('syntax')
   syntax on
   set background=dark
-  colorscheme noclown
+  silent! colorscheme noclown  " carry on if we don't have it
 endif
 
 " Enable file type detection with loading plugins & indent by file type.
@@ -187,7 +186,7 @@ endfunction
 command! -nargs=0 StripTrailingSpaces call Preserve("%s/\\s\\+$//e")
 
 " Execute post-install hooks
-call install#post_install()
+if exists('g:loaded_install') | call install#post_install() | endif
 
 " modeline
 """ vim: undofile
