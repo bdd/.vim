@@ -1,5 +1,5 @@
 silent! call plug#begin()
-if exists('g:loaded_plug') && g:loaded_plug == 1
+if exists('g:loaded_plug')
   " Order by GitHub user/project
 
   Plug 'fatih/vim-go'
