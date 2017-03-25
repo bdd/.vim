@@ -1,3 +1,6 @@
+set encoding=utf-8
+
+" vim-plug {{{
 silent! call plug#begin()
 if exists('g:loaded_plug')
   " Order by GitHub user/project
@@ -27,7 +30,7 @@ if exists('g:loaded_plug')
   let g:syntastic_check_on_wq = 0
   let g:syntastic_auto_loc_list = 2  " close loc list when no errors left
   let g:syntastic_loc_list_height = 5  " use a smaller location list (default: 10)
-  let g:syntastic_stl_format = "<Syntax: %e Err, %w Warn>"
+  let g:syntastic_stl_format = '<Syntax: %e Err, %w Warn>'
 
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-fugitive'
@@ -37,8 +40,16 @@ if exists('g:loaded_plug')
 
   call plug#end()
 endif
+" }}}
 
-" Terminal
+" Terminal {{{
+set ttyfast  " send more chars instead of ins/del line cmds for smooth redraw
+set lazyredraw  " don't redraw while executing macros, register and cmds
+
+if has('mouse')
+  set mouse=a
+endif
+
 if exists('$TMUX')
   " Disable Background Control Erase (BCE)
   set t_ut=
@@ -47,89 +58,56 @@ if exists('$TMUX')
   " Although Tmux supports it, Vim sets the value to 'xterm'.
   set ttymouse=xterm2
 endif
+" }}}
 
-if has('mouse')
-  set mouse=a
-endif
-
-" Look and feel
-set statusline=[%n]\ %<%F\ %m%r%w%y%=
-if exists('g:loaded_syntastic_plugin')
-  set statusline+=%#WarningMsg#%{SyntasticStatuslineFlag()}%*
-endif
-set statusline+=\ (%l,%c)\ %P\ of\ %L
-
-if has('syntax')
-  syntax on
-  set background=dark
-  silent! colorscheme noclown  " carry on if we don't have it
-endif
-
-" Enable file type detection with loading plugins & indent by file type.
-filetype plugin indent on
-
-" Behavior
-set hidden  " don't close but hide the buffer when dismissed
-set splitbelow  " new window below when `split`
-set splitright  " new window right when `vsplit`
-set visualbell  " don't beep! give me a visual bell.
-set autowrite  " automatically save before :next, :make, :suspend
-set backspace=indent,eol,start  " backspace over everything
-set showmatch  " jump to matching bracket briefly
-set encoding=utf-8
-
-set expandtab  " spaces over tabs for indentation
-set softtabstop=2  " without wasting to much screen estate
-set shiftwidth=2  " shift equally to indendation
-set tabstop=8  " tabs are 8 chars for a good reason, keep it that way
-set autoindent  " always-be-indenting
-set copyindent  " copy the existing indenting behavior of file
-
-" By default do not persist undo history but move storage under ~/.vim for the
-" cases undo persistence might have been enabled for a particular filetype, etc.
-set noundofile undodir=~/.vim/.undo/
-
-" Keep viminfo file under ~/.vim instead of home.
-set viminfo+=n~/.vim/.viminfo
-
-" Command and search pattern history
-set history=1000
-
-" Searching
-set ignorecase smartcase  " case insensitive search if there are no capital letters.
-set incsearch  " incrementally move to match and highlight
-set hlsearch  " highlight previous search pattern
-
+" Look & Feel {{{
 set relativenumber  " relative line numbers for lines above and below
 set showcmd  " show last command
-set shortmess=a  " a=all, use all abbrv possible in messages.
+set shortmess=a  " a=all, use all abbrv possible in messages
 set laststatus=2  " 2=always
-set lazyredraw  " redraw only when needed
-set ttyfast  " send more chars to tty to redraw.
 set scrolloff=5  " scroll edge offset (to keep some context)
 set wildmenu wildmode=list:longest
 set listchars=tab:▸·,trail:·,extends:#,nbsp:·
 
-if has("autocmd")
-  au FileType c set cindent
-  au FileType java set cindent
-  au FileType php set cindent
-  au FileType python,pyrex set ts=4 sts=4 sw=4 cindent cinkeys=:,o,O
-  au FileType sh set smartindent
-  au FileType vim set smartindent tw=80
-  au FileType ruby set smartindent tw=80
-  au FileType xhtml set smartindent
-  au FileType scala set smartindent
-  au FileType make set noexpandtab ts=4 sts=4 sw=4
-  au FileType go set nolist noet ts=8 sts=0 sw=0
-  au FileType gitconfig set nolist noet ts=8 sts=0 sw=0
-  au FileType gitcommit setlocal spell
-  au BufEnter *.pxi set ft=pyrex
-  au BufEnter BUILD* set ft=python
-  au BufEnter TARGET set ft=python
+if has('syntax')
+  syntax on
+  set background=dark
+  silent! colorscheme noclown  " silently continue if not found
 endif
 
-" Key mappings
+" Status Line
+let &statusline = '[%n] %<%F %m%r%w%y%='
+if exists('g:loaded_syntastic_plugin')
+  let &statusline .= '%#WarningMsg#%{SyntasticStatuslineFlag()}%*'
+endif
+let &statusline .= ' (%l,%c) %P of %L'
+" }}}
+
+" Behavior {{{
+set hidden  " don't close but hide the buffer when dismissed
+set splitbelow  " new window below when `split`
+set splitright  " new window right when `vsplit`
+set visualbell  " use visual bell instead of beeping
+set autowrite  " automatically save before :next, :make, :suspend
+set backspace=indent,eol,start  " backspace over everything
+set showmatch  " jump to matching bracket briefly
+
+" Indentation
+set expandtab  " spaces over tabs for indentation
+set softtabstop=2  " without wasting too much screen estate
+set shiftwidth=2  " shift equally to indentation
+set tabstop=8  " tabs are 8 chars for a good reason, keep it that way
+set autoindent  " always-be-indenting
+set copyindent  " copy the existing indenting behavior of file
+" }}}
+
+" Searching
+set ignorecase smartcase  " case insensitive search if there are no capital letters
+set incsearch  " incrementally move to match and highlight
+set hlsearch  " highlight previous search pattern
+set history=1000  " command and search pattern history
+
+" Key Mappings {{{
 let mapleader = "\<Space>"
 
 " Normal Mode
@@ -149,9 +127,10 @@ nnoremap <C-L> <C-W>l
 
 " Insert Mode
 " Use <CR> to select completion suggestion instead of <C-y>
-inoremap <expr> <CR> pumvisible() ? ("\<C-y>") : ("\<CR>")
+inoremap <expr> <CR> pumvisible() ? '<C-y>' : '<CR>'
+" }}}
 
-" Utility functions
+" Utility Functions {{{
 function! Preserve(command)
   let l:saved_search = @/
   let l:line = line('.')
@@ -181,9 +160,41 @@ function! SyntaxItem()
         \ map(l:chain, 'synIDattr(v:val, "name")'),
         \ '->')
 endfunction
+" }}}
 
 " Commands
-command! -nargs=0 StripTrailingSpaces call Preserve("%s/\\s\\+$//e")
+command! -nargs=0 StripTrailingSpaces call Preserve('%s/\s\+$//e')
 
-" modeline
-""" vim: undofile
+" Enable file type detection with loading plugins & indent by file type.
+filetype plugin indent on
+
+" By default do not persist undo history but move storage under ~/.vim for the
+" cases undo persistence might have been enabled for a particular filetype, etc.
+set noundofile undodir=~/.vim/.undo/
+
+" Keep viminfo file under ~/.vim instead of home.
+set viminfo+=n~/.vim/.viminfo
+
+" autocmd {{{
+if has('autocmd')
+  au FileType c set cindent
+  au FileType java set cindent
+  au FileType php set cindent
+  au FileType python,pyrex set ts=4 sts=4 sw=4 cindent cinkeys=:,o,O
+  au FileType sh set smartindent
+  au FileType vim set smartindent tw=80
+  au FileType ruby set smartindent tw=80
+  au FileType xhtml set smartindent
+  au FileType scala set smartindent
+  au FileType make set noexpandtab ts=4 sts=4 sw=4
+  au FileType go set nolist noet ts=8 sts=0 sw=0
+  au FileType gitconfig set nolist noet ts=8 sts=0 sw=0
+  au FileType gitcommit setlocal spell
+  au BufEnter *.pxi set ft=pyrex
+  au BufEnter BUILD* set ft=python
+  au BufEnter TARGET set ft=python
+endif
+" }}}
+
+" modeline:
+" vim: undofile foldmethod=marker foldlevel=1
