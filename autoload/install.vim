@@ -7,10 +7,15 @@ let s:this_script_dir = expand("<sfile>:p:h")
 let s:post_install_cmds = []
 
 function install#all()
+  " Register the function to run post installation commands.
+  " 'VimEnter' is after vimrc, '-c' args, creating windows and loading buffers.
+  autocmd VimEnter * call s:post_install()
+
+  " Installation tasks:
   call s:install_vim_plug()
 endfunction
 
-function install#post_install()
+function s:post_install()
   while len(s:post_install_cmds) > 0
     execute remove(s:post_install_cmds, 0)
   endwhile

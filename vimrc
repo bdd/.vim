@@ -185,8 +185,5 @@ endfunction
 " Commands
 command! -nargs=0 StripTrailingSpaces call Preserve("%s/\\s\\+$//e")
 
-" Execute post-install hooks
-if exists('g:loaded_install') | call install#post_install() | endif
-
 " modeline
 """ vim: undofile
