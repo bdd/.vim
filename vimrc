@@ -84,6 +84,7 @@ let &statusline .= ' (%l,%c) %P of %L'
 " }}}
 
 " Behavior {{{
+set autochdir  " change current directory to file in viewed buffer's
 set hidden  " don't close but hide the buffer when dismissed
 set splitbelow  " new window below when `split`
 set splitright  " new window right when `vsplit`
