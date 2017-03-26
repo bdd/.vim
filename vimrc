@@ -90,7 +90,6 @@ set splitright  " new window right when `vsplit`
 set visualbell  " use visual bell instead of beeping
 set autowrite  " automatically save before :next, :make, :suspend
 set backspace=indent,eol,start  " backspace over everything
-set showmatch  " jump to matching bracket briefly
 
 " Indentation
 set expandtab  " spaces over tabs for indentation
