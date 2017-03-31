@@ -89,7 +89,8 @@ set hidden  " don't close but hide the buffer when dismissed
 set splitbelow  " new window below when `split`
 set splitright  " new window right when `vsplit`
 set visualbell  " use visual bell instead of beeping
-set autowrite  " automatically save before :next, :make, :suspend
+set autoread  " automatically re-read unmodified buffer on file change
+set autowrite  " automatically save before :next, :make, :suspend, ...
 set backspace=indent,eol,start  " backspace over everything
 
 " Indentation
