@@ -151,6 +151,9 @@ call s:Defn('DiffChange', s:bg('fade_more'))
 call s:Defn('DiffDelete', s:fg('error'), s:bg('fade_more'))
 call s:Defn('DiffText', s:bg('attention'), s:fg('background'))
 
+" QuickFix
+call s:Defn('qfFileName', s:fg('fade'))
+
 """"
 """ Unmodified groups from default group names list.
 """ They retain their colorscheme from Vim's defaults.
