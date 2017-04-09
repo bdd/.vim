@@ -35,7 +35,7 @@ let s:palette = {
       \ 'foreground' : [250, '#bcbcbc'],
       \ 'background' : [234, '#1c1c1c'],
       \ 'fade'       : [245, '#8a8a8a'],
-      \ 'fade_more'  : [238, '#444444'],
+      \ 'fade-more'  : [238, '#444444'],
       \ 'highlight'  : [230, '#ffffd7'],
       \ 'attention'  : [224, '#ffd7d7'],
       \ 'error'      : [203, '#ff5f5f'],
@@ -105,7 +105,7 @@ call s:None('PreProc') "<- Include Define Macro PreCondit
 call s:None('Type') "<- StorageClass Structure Typedef
 call s:None('Special') "<- SpecialChar Tag Delimiter SpecialComment Debug
 call s:Defn('Underlined', s:attr('underline'))
-call s:Defn('Ignore', s:fg('fade_more'))
+call s:Defn('Ignore', s:fg('fade-more'))
 call s:Defn('Error', s:fg('error'))
 call s:Defn('Todo', s:attr('reverse'))
 
@@ -113,12 +113,12 @@ call s:Defn('Todo', s:attr('reverse'))
 call s:Defn('Normal', s:fg('foreground'), s:bg('background'))
 
 call s:Defn('SpecialKey', s:fg('fade'))
-call s:Defn('NonText', s:fg('fade_more'))
+call s:Defn('NonText', s:fg('fade-more'))
 call s:Link('CursorLineNr', 'SpecialKey')
 call s:Link('LineNr', 'NonText')
 call s:None('CursorLine')
 
-call s:Defn('VertSplit', s:fg('fade'), s:bg('fade_more'))
+call s:Defn('VertSplit', s:fg('fade'), s:bg('fade-more'))
 call s:Link('StatusLineNC', 'VertSplit')
 
 call s:Defn('StatusLine', s:attr('reverse'))
@@ -135,7 +135,7 @@ call s:Link('WildMenu', 'Search')
 call s:Defn('WarningMsg', s:fg('attention'))
 call s:Defn('ErrorMsg', s:fg('error'))
 
-call s:Defn('Pmenu', s:bg('fade_more'))
+call s:Defn('Pmenu', s:bg('fade-more'))
 call s:Defn('PMenuSel', s:fg('highlight'), s:bg('fade'))
 call s:Defn('PMenuSbar', s:fg('fade'), s:bg('fade'))
 call s:Defn('PMenuThumb', s:fg('fade'), s:bg('highlight'))
@@ -146,11 +146,11 @@ call s:Link('SpellLocal', 'SpellCap')
 call s:Link('SpellRare', 'SpellCap')
 
 call s:Defn('Folded', s:fg('highlight'), s:bg('fade'))
-call s:Defn('FoldColumn', s:fg('highlight'), s:bg('fade_more'))
+call s:Defn('FoldColumn', s:fg('highlight'), s:bg('fade-more'))
 
-call s:Defn('DiffAdd', s:attr('bold'), s:bg('fade_more'))
-call s:Defn('DiffChange', s:bg('fade_more'))
-call s:Defn('DiffDelete', s:fg('error'), s:bg('fade_more'))
+call s:Defn('DiffAdd', s:attr('bold'), s:bg('fade-more'))
+call s:Defn('DiffChange', s:bg('fade-more'))
+call s:Defn('DiffDelete', s:fg('error'), s:bg('fade-more'))
 call s:Defn('DiffText', s:bg('attention'), s:fg('background'))
 
 " QuickFix
