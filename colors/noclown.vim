@@ -4,6 +4,8 @@
 " clown threw up.
 "
 " Propaganda:
+" -- Visual clutter saps mental energy.
+"
 " * http://www.linusakesson.net/programming/syntaxhighlighting/
 " * http://kyleisom.net/blog/2012/10/17/syntax-off/
 " * https://www.robertmelton.com/2016/04/10/syntax-highlighting-off/
