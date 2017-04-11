@@ -178,22 +178,23 @@ set viminfo+=n~/.vim/.viminfo
 
 " autocmd {{{
 if has('autocmd')
-  au FileType c set cindent
-  au FileType java set cindent
-  au FileType php set cindent
-  au FileType python,pyrex set ts=4 sts=4 sw=4 cindent cinkeys=:,o,O
-  au FileType sh set smartindent
-  au FileType vim set smartindent tw=80
-  au FileType ruby set smartindent tw=80
-  au FileType xhtml set smartindent
-  au FileType scala set smartindent
-  au FileType make set noexpandtab ts=4 sts=4 sw=4
-  au FileType go set nolist noet ts=8 sts=0 sw=0
-  au FileType gitconfig set nolist noet ts=8 sts=0 sw=0
-  au FileType gitcommit setlocal spell
-  au BufEnter *.pxi set ft=pyrex
-  au BufEnter BUILD* set ft=python
-  au BufEnter TARGET set ft=python
+  augroup filetype
+    autocmd!
+    " Indentation
+    autocmd FileType python setlocal sts=4 sw=4
+    autocmd FileType make setlocal list noet ts=4 sts=0 sw=0
+    autocmd FileType go setlocal nolist noet sts=0 sw=0
+    autocmd FileType gitconfig setlocal nolist noet sts=0 sw=0
+    autocmd FileType gitcommit setlocal spell
+    autocmd FileType vim setlocal keywordprg=:help
+  augroup END
+
+  " Do not show trailing space markers in insert mode.
+  augroup listchars
+    autocmd!
+    autocmd InsertEnter * :set listchars-=trail:·
+    autocmd InsertLeave * :set listchars+=trail:·
+  augroup END
 endif
 " }}}
 
