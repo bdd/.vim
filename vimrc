@@ -200,5 +200,8 @@ if has('autocmd')
 endif
 " }}}
 
+let $LOCALVIMRC = expand("~/.vimrc.local")
+if filereadable($LOCALVIMRC) | source $LOCALVIMRC | endif
+
 " modeline:
 " vim: undofile foldmethod=marker foldlevel=1
