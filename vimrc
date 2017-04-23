@@ -67,7 +67,7 @@ set shortmess=a  " a=all, use all abbrv possible in messages
 set laststatus=2  " 2=always
 set scrolloff=5  " scroll edge offset (to keep some context)
 set wildmenu wildmode=list:longest
-set listchars=tab:▸·,trail:·,extends:#,nbsp:·
+set list listchars=tab:»‧,trail:░,precedes:◄,extends:►,nbsp:‧
 
 if has('syntax')
   syntax on
@@ -182,7 +182,7 @@ if has('autocmd')
     autocmd!
     " Indentation
     autocmd FileType python setlocal sts=4 sw=4
-    autocmd FileType make setlocal list noet ts=4 sts=0 sw=0
+    autocmd FileType make setlocal noet ts=4 sts=0 sw=0
     autocmd FileType go setlocal nolist noet sts=0 sw=0
     autocmd FileType gitconfig setlocal nolist noet sts=0 sw=0
     autocmd FileType gitcommit setlocal spell
@@ -192,8 +192,8 @@ if has('autocmd')
   " Do not show trailing space markers in insert mode.
   augroup listchars
     autocmd!
-    autocmd InsertEnter * :set listchars-=trail:·
-    autocmd InsertLeave * :set listchars+=trail:·
+    autocmd InsertEnter * if &list | set listchars-=trail:░ | endif
+    autocmd InsertLeave * if &list | set listchars+=trail:░ | endif
   augroup END
 endif
 " }}}
