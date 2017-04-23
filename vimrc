@@ -187,6 +187,8 @@ if has('autocmd')
     autocmd FileType gitconfig setlocal nolist noet sts=0 sw=0
     autocmd FileType gitcommit setlocal spell
     autocmd FileType vim setlocal keywordprg=:help
+    " Maps
+    autocmd FileType help nnoremap <silent><buffer> q :q<CR>
   augroup END
 
   " Do not show trailing space markers in insert mode.
